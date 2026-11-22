@@ -1,0 +1,71 @@
+{
+    "products" : [
+        {
+            "id": "125441",
+            "name": "Monitor",
+            "description": "This is a gaming monitor.",
+            "price": 15000
+        },
+        {
+            "id": "125442",
+            "name": "Mechanical Keyboard",
+            "description": "This is an RGB mechanical gaming keyboard.",
+            "price": 4500
+        },
+        {
+            "id": "125443",
+            "name": "Gaming Mouse",
+            "description": "This is a high-DPI wireless gaming mouse.",
+            "price": 3200
+        },
+        {
+            "id": "125444",
+            "name": "Headset",
+            "description": "This is a 7.1 surround sound gaming headset.",
+            "price": 5000
+        },
+        {
+            "id": "125445",
+            "name": "Graphics Card",
+            "description": "This is a high-performance GPU for gaming.",
+            "price": 45000
+        },
+        {
+            "id": "125446",
+            "name": "SSD",
+            "description": "This is a 1TB NVMe M.2 solid state drive.",
+            "price": 8500
+        },
+        {
+            "id": "125447",
+            "name": "RAM",
+            "description": "This is a 16GB DDR5 desktop memory module.",
+            "price": 6500
+        },
+        {
+            "id": "125448",
+            "name": "Motherboard",
+            "description": "This is an ATX gaming motherboard with Wi-Fi.",
+            "price": 18000
+        },
+        {
+            "id": "125449",
+            "name": "Power Supply",
+            "description": "This is a 750W 80+ Gold modular power supply.",
+            "price": 9500
+        },
+        {
+            "id": "125450",
+            "name": "PC Case",
+            "description": "This is a mid-tower ATX case with tempered glass.",
+            "price": 6000
+        },
+        {
+            "id": "125451",
+            "name": "Webcam",
+            "description": "This is a 1080p HD streaming webcam.",
+            "price": 4200
+        }
+    ]
+
+}
