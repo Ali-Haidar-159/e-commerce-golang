@@ -19,8 +19,11 @@ func main() {
 	productMux := http.NewServeMux()
 
 	// request-response cycle
-	productMux.HandleFunc("/products", controller.GetAllProducts)
-	productMux.HandleFunc("/create", controller.CreateProduct)
+	productMux.Handle("OPTIONS /products", http.HandlerFunc(controller.GetAllProducts))
+	productMux.Handle("GET /products", http.HandlerFunc(controller.GetAllProducts))
+
+	productMux.Handle("OPTIONS /create", http.HandlerFunc(controller.CreateProduct))
+	productMux.Handle("POST /create", http.HandlerFunc(controller.CreateProduct))
 
 	// create the server obj
 	server := &http.Server{
