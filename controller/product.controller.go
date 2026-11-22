@@ -24,7 +24,6 @@ var list ProductList
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
-	utils.CorsHandler(w)
 	utils.PreflightHandler(w, r)
 
 	if r.Method != http.MethodGet {

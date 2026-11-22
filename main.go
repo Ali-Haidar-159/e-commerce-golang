@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"ali.com/market/controller"
+	"ali.com/market/middlewares"
 )
 
 func getPort() string {
@@ -19,8 +20,9 @@ func main() {
 	productMux := http.NewServeMux()
 
 	// request-response cycle
-	productMux.Handle("OPTIONS /products", http.HandlerFunc(controller.GetAllProducts))
-	productMux.Handle("GET /products", http.HandlerFunc(controller.GetAllProducts))
+
+	// productMux.Handle("OPTIONS /products", http.HandlerFunc(controller.GetAllProducts))
+	productMux.Handle("GET /products", middlewares.CorsMiddleware(http.HandlerFunc(controller.GetAllProducts)))
 
 	productMux.Handle("OPTIONS /create", http.HandlerFunc(controller.CreateProduct))
 	productMux.Handle("POST /create", http.HandlerFunc(controller.CreateProduct))
