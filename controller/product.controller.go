@@ -24,13 +24,7 @@ var list ProductList
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
-	utils.PreflightHandler(w, r)
-
-	if r.Method != http.MethodGet {
-		return
-	}
-
-	products, err := os.ReadFile("./data/products.json")
+	products, err := os.ReadFile("./database/products.json")
 	if err != nil {
 		fmt.Println("Error reading the products data:", err)
 		http.Error(w, "Could not read products file", http.StatusInternalServerError)
@@ -47,14 +41,35 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	utils.SendJsonResponse(w, list.Products, http.StatusOK)
 }
 
-func CreateProduct(w http.ResponseWriter, r *http.Request) {
+func GetSingleProduct(w http.ResponseWriter, r *http.Request) {
+	productId := r.PathValue("productId")
 
-	utils.CorsHandler(w)
-	utils.PreflightHandler(w, r)
-
-	if r.Method != http.MethodPost {
+	products, err := os.ReadFile("./database/products.json")
+	if err != nil {
+		fmt.Println("Error reading the products data:", err)
+		http.Error(w, "Could not read products file", http.StatusInternalServerError)
 		return
 	}
+
+	errJson := json.Unmarshal(products, &list)
+	if errJson != nil {
+		fmt.Println("Error converting JSON:", err)
+		http.Error(w, "Invalid JSON format", http.StatusInternalServerError)
+		return
+	}
+
+	for _, item := range list.Products {
+		if item.ID == productId {
+			utils.SendJsonResponse(w, item, http.StatusOK)
+			return
+		}
+	}
+
+	utils.SendJsonResponse(w, "No Product Found For This Id", http.StatusNotFound)
+
+}
+
+func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	var product1 Product
 	var allProducts ProductList
