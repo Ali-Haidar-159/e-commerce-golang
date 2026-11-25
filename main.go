@@ -5,33 +5,13 @@ import (
 	"net/http"
 
 	"ali.com/market/controller"
+	"ali.com/market/utils"
 )
 
 func getPort() string {
 	const PORT int = 3000
 
 	return fmt.Sprintf(":%d", PORT)
-}
-
-func globalRouter(mux *http.ServeMux) http.Handler {
-
-	handleAllReq := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Content-Type", "application/json")
-
-		if r.Method == http.MethodOptions {
-			w.WriteHeader(http.StatusOK)
-			return
-		}
-
-		mux.ServeHTTP(w, r)
-	}
-
-	handler := http.HandlerFunc(handleAllReq)
-	return handler
-
 }
 
 func main() {
@@ -48,7 +28,7 @@ func main() {
 	productMux.Handle("POST /create", http.HandlerFunc(controller.CreateProduct))
 
 	// attach the global router with server
-	handler := globalRouter(productMux)
+	handler := utils.GlobalRouter(productMux)
 
 	// create the server obj
 	server := &http.Server{
