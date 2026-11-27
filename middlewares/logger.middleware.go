@@ -1,9 +1,8 @@
 package middlewares
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"time"
 )
 
 func Logger(next http.Handler) http.Handler {
@@ -11,13 +10,15 @@ func Logger(next http.Handler) http.Handler {
 	logger := func(w http.ResponseWriter, r *http.Request) {
 
 		//before execute the controller
-		start := time.Now()
+		// start := time.Now()
+		fmt.Println("Ami age print hobo")
 
 		// execute the controller
 		next.ServeHTTP(w, r)
 
 		// after execute the controller
-		log.Println(r.Method, " ", r.URL.Path, " ", time.Since(start))
+		// log.Println(r.Method, " ", r.URL.Path, " ", time.Since(start))
+		fmt.Println("ami pore print hobo")
 	}
 
 	loggerHandler := http.HandlerFunc(logger)

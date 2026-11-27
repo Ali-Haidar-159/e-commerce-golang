@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"ali.com/market/controller"
 	"ali.com/market/middlewares"
+	"ali.com/market/router"
 	"ali.com/market/utils"
 )
 
@@ -20,13 +20,12 @@ func Serve() {
 	// create the router
 	productMux := http.NewServeMux()
 
+	// CORS and preflight handle
+	middlewareManager := middlewares.NewMiddleware()
+	middlewareManager.Use(middlewares.Logger, middlewares.Test)
+
 	// request-response cycle
-
-	productMux.Handle("GET /products", middlewares.Test(middlewares.Logger(http.HandlerFunc(controller.GetAllProducts))))
-
-	productMux.Handle("GET /products/{productId}", middlewares.Test(middlewares.Logger(http.HandlerFunc(controller.GetSingleProduct))))
-
-	productMux.Handle("POST /products", middlewares.Test(middlewares.Logger(http.HandlerFunc(controller.CreateProduct))))
+	router.ProductRouter(productMux, middlewareManager)
 
 	// attach the global router with server
 	handler := utils.GlobalRouter(productMux)
